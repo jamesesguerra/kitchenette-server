@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kitchenette-server", "kitchenette-server\kitchenette-server.csproj", "{9DBD34E0-594A-4711-8F80-BCCE8B8B8F67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kitchenette-server", "kitchenette-server\kitchenette-server.csproj", "{4FD131AC-0B97-4067-BFEB-91D6AE468E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9DBD34E0-594A-4711-8F80-BCCE8B8B8F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DBD34E0-594A-4711-8F80-BCCE8B8B8F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DBD34E0-594A-4711-8F80-BCCE8B8B8F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DBD34E0-594A-4711-8F80-BCCE8B8B8F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FD131AC-0B97-4067-BFEB-91D6AE468E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FD131AC-0B97-4067-BFEB-91D6AE468E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FD131AC-0B97-4067-BFEB-91D6AE468E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FD131AC-0B97-4067-BFEB-91D6AE468E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

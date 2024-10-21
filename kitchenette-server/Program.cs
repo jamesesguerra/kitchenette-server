@@ -1,31 +1,25 @@
-using Microsoft.OpenApi.Models;
-
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddProblemDetails();
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x =>
-    x.SwaggerDoc("v1", new OpenApiInfo()
-    {
-        Title = "kitchenette API",
-        Description = "An API for interacting with the kitchenette app",
-        Version = "1.0"
-    })
-);
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
-if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseStaticFiles();
-app.UseRouting();
-app.UseStatusCodePages();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
