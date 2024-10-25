@@ -1,6 +1,15 @@
+using kitchenette_server.Context;
+using kitchenette_server.Interfaces;
+using kitchenette_server.Repositories;
+using kitchenette_server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IDbContext, DbContext>();
+builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
+builder.Services.AddSingleton<IRecipeService, RecipeService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
