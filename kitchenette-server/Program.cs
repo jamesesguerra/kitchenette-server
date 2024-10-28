@@ -2,6 +2,7 @@ using kitchenette_server.Context;
 using kitchenette_server.Interfaces.DbContext;
 using kitchenette_server.Interfaces.Recipes;
 using kitchenette_server.Interfaces.Users;
+using kitchenette_server.Interfaces.Collections;
 using kitchenette_server.Repositories;
 using kitchenette_server.Services;
 
@@ -13,6 +14,8 @@ builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRecipeService, RecipeService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSingleton<ICollectionRepository, CollectionRepository>();
+builder.Services.AddSingleton<ICollectionService, CollectionService>();
 
 
 builder.Services.AddControllers();
