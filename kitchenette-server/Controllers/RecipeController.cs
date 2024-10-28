@@ -1,4 +1,4 @@
-using kitchenette_server.Interfaces;
+using kitchenette_server.Interfaces.Recipes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kitchenette_server.Controllers;

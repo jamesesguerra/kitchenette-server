@@ -1,4 +1,4 @@
-using kitchenette_server.Interfaces;
+using kitchenette_server.Interfaces.Recipes;
 using kitchenette_server.Models;
 
 namespace kitchenette_server.Services;

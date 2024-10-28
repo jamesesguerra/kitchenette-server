@@ -1,5 +1,5 @@
 using System.Data;
-using kitchenette_server.Interfaces;
+using kitchenette_server.Interfaces.DbContext;
 using Npgsql;
 
 namespace kitchenette_server.Context;
