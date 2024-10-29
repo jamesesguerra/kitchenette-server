@@ -18,6 +18,14 @@ builder.Services.AddSingleton<ICollectionRepository, CollectionRepository>();
 builder.Services.AddSingleton<ICollectionService, CollectionService>();
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Allow localhost", 
+        policy => policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -33,7 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("Allow localhost");
 app.UseAuthorization();
 
 app.MapControllers();
