@@ -1,4 +1,5 @@
 using kitchenette_server.Interfaces.Collections;
+using kitchenette_server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kitchenette_server.Controllers;
@@ -20,4 +21,25 @@ public class CollectionController : ControllerBase
         var collections = await _collectionService.GetCollectionsByUserId(userId);
         return Ok(collections);
     }
+
+    [HttpPost("")]
+    public async Task<IActionResult> AddCollection(Collection newCollection)
+    {
+        var collection = await _collectionService.AddCollection(newCollection);
+        return Ok(collection);
+    }
+
+    [HttpDelete("{collectionId}")]
+    public async Task<IActionResult> DeleteCollection([FromRoute] int collectionId)
+    {
+        var affectedRows = await _collectionService.DeleteCollection(collectionId);
+
+        if (affectedRows == 0)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+    
 }

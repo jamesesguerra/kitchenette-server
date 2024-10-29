@@ -16,4 +16,14 @@ public class CollectionService : ICollectionService
     {
         return await _collectionRepository.GetCollectionsByUserId(userId);
     }
+
+    public async Task<Collection> AddCollection(Collection newCollection)
+    {
+        return await _collectionRepository.AddCollection(newCollection);
+    }
+
+    public async Task<int> DeleteCollection(int id)
+    {
+        return await _collectionRepository.DeleteCollection(id);
+    }
 }

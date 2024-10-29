@@ -5,4 +5,6 @@ namespace kitchenette_server.Interfaces.Collections;
 public interface ICollectionRepository
 {
     Task<IEnumerable<Collection>> GetCollectionsByUserId(string userId);
+    Task<Collection> AddCollection(Collection newCollection);
+    Task<int> DeleteCollection(int collectionId);
 }
