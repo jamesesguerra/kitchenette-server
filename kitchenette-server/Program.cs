@@ -8,6 +8,15 @@ using kitchenette_server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuration Providers
+builder.Configuration
+    .AddJsonFile(
+        "appsettings.json",
+        optional: false)
+    .AddJsonFile(
+        $"appsettings.{builder.Environment.EnvironmentName}.json",
+        optional: true);
+
 // Add services to the container.
 builder.Services.AddSingleton<IDbContext, DbContext>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
