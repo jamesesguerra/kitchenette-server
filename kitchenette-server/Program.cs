@@ -21,7 +21,7 @@ builder.WebHost.UseUrls("http://*:5280");
 
 var allowedOrigins = builder.Environment.IsDevelopment()
     ? new[] { "http://localhost:4200" }
-    : new[] { "https://kitchenette-ui.vercel.app" };
+    : new[] { "https://kitchenette-ui.vercel.app", "https://kitchenetteapp.netlify.appi" };
 
 builder.Services.AddCors(options =>
 {
