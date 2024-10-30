@@ -17,12 +17,17 @@ builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<ICollectionRepository, CollectionRepository>();
 builder.Services.AddSingleton<ICollectionService, CollectionService>();
 
+builder.WebHost.UseUrls("http://*:5280");
+
+var allowedOrigins = builder.Environment.IsDevelopment()
+    ? new[] { "http://localhost:4200" }
+    : new[] { "https://kitchenette-ui.vercel.app" };
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Allow localhost", 
+    options.AddPolicy("AllowSpecificOrigins", 
         policy => policy
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins(allowedOrigins)
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
@@ -41,7 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("Allow localhost");
+app.UseCors("AllowSpecificOrigins");
 app.UseAuthorization();
 
 app.MapControllers();
