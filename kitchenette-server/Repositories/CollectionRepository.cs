@@ -18,7 +18,14 @@ public class CollectionRepository : ICollectionRepository
     {
         using var connection = _context.CreateConnection();
 
-        var sql = " SELECT * FROM Collection WHERE UserId = @userId ";
+        var sql = @" SELECT Id,
+                            UserId,
+                            Name,
+                            Description,
+                            IsVisible,
+                            CreatedAt
+                     FROM Collection
+                     WHERE UserId = @userId ";
         var collections = await connection.QueryAsync<Collection>(sql, new { userId });
         return collections;
     }

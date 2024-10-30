@@ -18,7 +18,14 @@ public class UserRepository : IUserRepository
     {
         using var connection = _context.CreateConnection();
 
-        var sql = " SELECT * FROM Users ";
+        var sql = @" SELECT Id, 
+                            Name,
+                            Nickname,
+                            Email,
+                            Bio,
+                            Picture,
+                            CreatedAt
+                     FROM Users ";
         var users = await connection.QueryAsync<User>(sql);
         return users;
     }
