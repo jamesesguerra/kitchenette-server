@@ -1,3 +1,4 @@
+using kitchenette_server.Dtos;
 using kitchenette_server.Interfaces.Collections;
 using kitchenette_server.Models;
 
@@ -17,6 +18,11 @@ public class CollectionService : ICollectionService
         return await _collectionRepository.GetCollectionsByUserId(userId);
     }
 
+    public async Task<Collection?> GetCollectionById(int id)
+    {
+        return await _collectionRepository.GetCollectionById(id);
+    }
+
     public async Task<Collection> AddCollection(Collection newCollection)
     {
         return await _collectionRepository.AddCollection(newCollection);
@@ -25,5 +31,15 @@ public class CollectionService : ICollectionService
     public async Task<int> DeleteCollection(int id)
     {
         return await _collectionRepository.DeleteCollection(id);
+    }
+
+    public async Task<CollectionDto> GetCollectionByIdWithRecipes(int id)
+    {
+        return await _collectionRepository.GetCollectionByIdWithRecipes(id);
+    }
+
+    public async Task UpdateCollection(int id, Collection updatedCollection)
+    {
+        await _collectionRepository.UpdateCollection(id, updatedCollection);
     }
 }

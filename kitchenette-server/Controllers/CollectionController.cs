@@ -1,3 +1,4 @@
+using kitchenette_server.Dtos;
 using kitchenette_server.Interfaces.Collections;
 using kitchenette_server.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -29,10 +30,10 @@ public class CollectionController : ControllerBase
         return Ok(collection);
     }
 
-    [HttpDelete("{collectionId}")]
-    public async Task<IActionResult> DeleteCollection([FromRoute] int collectionId)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCollection([FromRoute] int id)
     {
-        var affectedRows = await _collectionService.DeleteCollection(collectionId);
+        var affectedRows = await _collectionService.DeleteCollection(id);
 
         if (affectedRows == 0)
         {
@@ -41,5 +42,24 @@ public class CollectionController : ControllerBase
 
         return NoContent();
     }
-    
+
+    [HttpGet("{id}/recipes")]
+    public async Task<IActionResult> GetCollectionByIdWithRecipes([FromRoute] int id)
+    {
+        var collection = await _collectionService.GetCollectionByIdWithRecipes(id);
+        return Ok(collection);
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateCollection(int id, [FromBody] CollectionUpdateDto updatedCollection)
+    {
+        var collection = await _collectionService.GetCollectionById(id);
+        if (collection is null) return NotFound();
+        
+        collection.Name = updatedCollection.Name ?? collection.Name;
+        collection.Description = updatedCollection.Description ?? collection.Description;
+
+        await _collectionService.UpdateCollection(id, collection);
+        return NoContent();
+    }
 }
