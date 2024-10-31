@@ -12,8 +12,18 @@ public class RecipeService : IRecipeService
         _recipeRepository = recipeRepository;
     }
 
-    public async Task<IEnumerable<Recipe>> GetAllRecipes()
+    public async Task<IEnumerable<Recipe>> GetRecipesByUserId(string userId)
     {
-        return await _recipeRepository.GetAllRecipes();
+        return await _recipeRepository.GetRecipesByUserId(userId);
+    }
+
+    public async Task<Recipe> GetRecipeById(int id)
+    {
+        return await _recipeRepository.GetRecipeById(id);
+    }
+
+    public async Task<Recipe> AddRecipe(Recipe newRecipe)
+    {
+        return await _recipeRepository.AddRecipe(newRecipe);
     }
 }

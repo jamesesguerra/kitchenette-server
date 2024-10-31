@@ -4,5 +4,7 @@ namespace kitchenette_server.Interfaces.Recipes;
 
 public interface IRecipeRepository
 {
-    Task<IEnumerable<Recipe>> GetAllRecipes();
+    Task<IEnumerable<Recipe>> GetRecipesByUserId(string userId);
+    Task<Recipe> GetRecipeById(int id);
+    Task<Recipe> AddRecipe(Recipe newRecipe);
 }
