@@ -16,9 +16,9 @@ public class RecipeController : ControllerBase
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetRecipesByUserId([FromQuery] string userId)
+    public async Task<IActionResult> GetRecipeSummariesByUserId([FromQuery] string userId)
     {
-        var recipes = await _recipeService.GetRecipesByUserId(userId);
+        var recipes = await _recipeService.GetRecipeSummariesByUserId(userId);
         return Ok(recipes);
     }
 
@@ -34,5 +34,28 @@ public class RecipeController : ControllerBase
     {
         var recipe = await _recipeService.AddRecipe(newRecipe);
         return Ok(recipe);
+    }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateRecipe(int id, [FromBody] Recipe recipe)
+    {
+        if (recipe is null) return BadRequest("Recipe data is required");
+        
+        if (recipe.Id != id) return BadRequest("Recipe id does not match");
+        
+        await _recipeService.UpdateRecipe(recipe);
+        return Ok();
+    }
+
+    [HttpDelete("")]
+    public async Task<IActionResult> DeleteRecipes([FromQuery] string ids)
+    {
+        if (string.IsNullOrEmpty(ids)) return BadRequest("No recipe IDs provided");
+        
+        var deletedCount = await _recipeService.DeleteRecipesByIds(ids);
+
+        if (deletedCount == 0) return NotFound("No recipes found with the provided IDs");
+        
+        return NoContent();
     }
 }

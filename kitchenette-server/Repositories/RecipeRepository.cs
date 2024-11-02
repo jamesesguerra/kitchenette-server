@@ -1,4 +1,5 @@
 using Dapper;
+using kitchenette_server.Dtos;
 using kitchenette_server.Interfaces.DbContext;
 using kitchenette_server.Interfaces.Recipes;
 using kitchenette_server.Models;
@@ -14,30 +15,21 @@ public class RecipeRepository : IRecipeRepository
         _context = context;
     }
     
-    public async Task<IEnumerable<Recipe>> GetRecipesByUserId(string userId)
+    public async Task<IEnumerable<RecipeSummaryDto>> GetRecipeSummariesByUserId(string userId)
     {
         using var connection = _context.CreateConnection();
         
         var sql = @" SELECT R.Id,
-                            R.CollectionId,
+                            C.Name AS Collection,
                             R.Name,
                             R.Description,
                             R.CoverPicture,
-                            R.PrepTime,
-                            R.CookTime,
-                            R.Ingredients,
-                            R.Instructions,
-                            R.Servings,
-                            R.Calories,
-                            R.Protein,
-                            R.Fat,
-                            R.Carbohydrates,
                             R.CreatedAt 
                     FROM Recipe AS R 
                     INNER JOIN Collection AS C ON R.CollectionId = C.Id 
                     WHERE C.UserId = @userId ";
         
-        var recipes = await connection.QueryAsync<Recipe>(sql, new { userId });
+        var recipes = await connection.QueryAsync<RecipeSummaryDto>(sql, new { userId });
         return recipes;
     }
     
@@ -130,6 +122,40 @@ public class RecipeRepository : IRecipeRepository
 
         return recipe;
     }
-    
-    
+
+    public async Task UpdateRecipe(Recipe recipe)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @" UPDATE Recipe
+                     SET
+                        CollectionId = @CollectionId,
+                        Name = @Name,
+                        Description = @Description,
+                        CoverPicture = @CoverPicture,
+                        PrepTime = @PrepTime,
+                        CookTime = @CookTime,
+                        Ingredients = @Ingredients,
+                        Instructions = @Instructions,
+                        Servings = @Servings,
+                        Calories = @Calories,
+                        Protein = @Protein,
+                        Fat = @Fat,
+                        Fiber = @Fiber,
+                        Carbohydrates = @Carbohydrates
+                    WHERE
+                        Id = @Id; ";
+
+        await connection.ExecuteAsync(sql, recipe);
+    }
+
+    public async Task<int> DeleteRecipesByIds(string ids)
+    {
+        using var connection = _context.CreateConnection();
+        
+        var sql = @$" DELETE FROM Recipe WHERE Id IN ({ids}) ";
+        var affectedRows = await connection.ExecuteAsync(sql);
+
+        return affectedRows;
+    }
 }

@@ -1,3 +1,4 @@
+using kitchenette_server.Dtos;
 using kitchenette_server.Interfaces.Recipes;
 using kitchenette_server.Models;
 
@@ -12,9 +13,9 @@ public class RecipeService : IRecipeService
         _recipeRepository = recipeRepository;
     }
 
-    public async Task<IEnumerable<Recipe>> GetRecipesByUserId(string userId)
+    public async Task<IEnumerable<RecipeSummaryDto>> GetRecipeSummariesByUserId(string userId)
     {
-        return await _recipeRepository.GetRecipesByUserId(userId);
+        return await _recipeRepository.GetRecipeSummariesByUserId(userId);
     }
 
     public async Task<Recipe> GetRecipeById(int id)
@@ -25,5 +26,15 @@ public class RecipeService : IRecipeService
     public async Task<Recipe> AddRecipe(Recipe newRecipe)
     {
         return await _recipeRepository.AddRecipe(newRecipe);
+    }
+    
+    public async Task UpdateRecipe(Recipe recipe)
+    {
+        await _recipeRepository.UpdateRecipe(recipe);
+    }
+
+    public async Task<int> DeleteRecipesByIds(string ids)
+    {
+        return await _recipeRepository.DeleteRecipesByIds(ids);
     }
 }
