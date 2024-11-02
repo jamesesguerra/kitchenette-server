@@ -33,6 +33,11 @@ public class RecipeService : IRecipeService
         await _recipeRepository.UpdateRecipe(recipe);
     }
 
+    public async Task PatchRecipe(int id, RecipeChanges recipe)
+    {
+        await _recipeRepository.PatchRecipe(id, recipe);
+    }
+
     public async Task<int> DeleteRecipesByIds(string ids)
     {
         return await _recipeRepository.DeleteRecipesByIds(ids);

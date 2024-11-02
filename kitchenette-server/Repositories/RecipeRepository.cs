@@ -1,3 +1,4 @@
+using System.Text;
 using Dapper;
 using kitchenette_server.Dtos;
 using kitchenette_server.Interfaces.DbContext;
@@ -149,6 +150,18 @@ public class RecipeRepository : IRecipeRepository
         await connection.ExecuteAsync(sql, recipe);
     }
 
+    public async Task PatchRecipe(int id, RecipeChanges recipe)
+    {
+        using var connection = _context.CreateConnection();
+
+        var queryBuilder = new StringBuilder(" UPDATE Recipe SET ");
+        var dynamicParams = BuildDynamicParams(recipe, queryBuilder);
+        queryBuilder.Append(" WHERE Id = @id ");
+        dynamicParams.Add("@id", id);
+        
+        await connection.ExecuteAsync(queryBuilder.ToString(), dynamicParams);
+    }
+
     public async Task<int> DeleteRecipesByIds(string ids)
     {
         using var connection = _context.CreateConnection();
@@ -158,4 +171,30 @@ public class RecipeRepository : IRecipeRepository
 
         return affectedRows;
     }
+    
+    #region private methods
+    private DynamicParameters BuildDynamicParams(RecipeChanges recipe, StringBuilder queryBuilder)
+    {
+        var dynamicParams = new DynamicParameters();
+        bool isFirstParam = true;
+
+        var properties = typeof(RecipeChanges).GetProperties();
+
+        foreach (var property in properties)
+        {
+            var value = property.GetValue(recipe);
+            if (value != null && property.Name != "Id" && property.Name != "SuggestionId")
+            {
+                var fieldName = property.Name;
+                var paramName = $"@{fieldName}";
+
+                queryBuilder.Append(isFirstParam ? $" {fieldName} = {paramName} " : $", {fieldName} = {paramName} ");
+                dynamicParams.Add(paramName, value);
+                isFirstParam = false;
+            }
+        }
+        
+        return dynamicParams;
+    }
+    #endregion
 }

@@ -9,5 +9,6 @@ public interface IRecipeService
     Task<Recipe> GetRecipeById(int id);
     Task<Recipe> AddRecipe(Recipe newRecipe);
     Task UpdateRecipe(Recipe recipe);
+    Task PatchRecipe(int id, RecipeChanges recipe);
     Task<int> DeleteRecipesByIds(string ids);
 }

@@ -40,10 +40,18 @@ public class RecipeController : ControllerBase
     public async Task<IActionResult> UpdateRecipe(int id, [FromBody] Recipe recipe)
     {
         if (recipe is null) return BadRequest("Recipe data is required");
-        
         if (recipe.Id != id) return BadRequest("Recipe id does not match");
         
         await _recipeService.UpdateRecipe(recipe);
+        return Ok();
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchRecipe(int id, [FromBody] RecipeChanges recipe)
+    {
+        if (recipe is null) return BadRequest("Recipe data is required");
+
+        await _recipeService.PatchRecipe(id, recipe);
         return Ok();
     }
 
