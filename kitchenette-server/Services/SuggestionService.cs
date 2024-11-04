@@ -32,4 +32,9 @@ public class SuggestionService : ISuggestionService
     {
         await _suggestionRepository.PatchSuggestion(id, suggestion);
     }
+
+    public async Task<int> DeleteSuggestion(int id)
+    {
+        return await _suggestionRepository.DeleteSuggestion(id);
+    }
 }

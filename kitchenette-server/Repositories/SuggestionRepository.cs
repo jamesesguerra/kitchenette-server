@@ -136,8 +136,19 @@ public class SuggestionRepository : ISuggestionRepository
     {
         using var connection = _context.CreateConnection();
         
-        var sql = @" UPDATE Suggestion SET Status = @Status WHERE Id = @id ";
+        var sql = " UPDATE Suggestion SET Status = @Status WHERE Id = @id ";
 
         await connection.ExecuteAsync(sql, new { id, suggestion.Status });
+    }
+
+    public async Task<int> DeleteSuggestion(int id)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = " DELETE FROM Suggestion WHERE Id = @id ";
+        
+        var affectedRows = await connection.ExecuteAsync(sql, new { id });
+
+        return affectedRows;
     }
 }

@@ -9,4 +9,5 @@ public interface ISuggestionService
     Task<SuggestionDto> AddSuggestion(SuggestionDto suggestion);
     Task<IEnumerable<SuggestionDto>> GetSuggestionsByRecipeId(int id);
     Task PatchSuggestion(int id, Suggestion suggestion);
+    Task<int> DeleteSuggestion(int id);
 }

@@ -43,4 +43,14 @@ public class SuggestionController : ControllerBase
         await _suggestionService.PatchSuggestion(id, suggestion);
         return Ok();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteSuggestion(int id)
+    {
+        var affectedRows = await _suggestionService.DeleteSuggestion(id);
+
+        if (affectedRows == 0) return NotFound();
+
+        return NoContent();
+    }
 }
