@@ -18,7 +18,7 @@ public class RecipeService : IRecipeService
         return await _recipeRepository.GetRecipeSummariesByUserId(userId);
     }
 
-    public async Task<Recipe> GetRecipeById(int id)
+    public async Task<RecipeDto> GetRecipeById(int id)
     {
         return await _recipeRepository.GetRecipeById(id);
     }

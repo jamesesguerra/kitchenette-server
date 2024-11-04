@@ -34,30 +34,34 @@ public class RecipeRepository : IRecipeRepository
         return recipes;
     }
     
-    public async Task<Recipe> GetRecipeById(int id)
+    public async Task<RecipeDto> GetRecipeById(int id)
     {
         using var connection = _context.CreateConnection();
         
-        var sql = @" SELECT Id,
-                            CollectionId,
-                            Name,
-                            Description,
-                            CoverPicture,
-                            PrepTime,
-                            CookTime,
-                            Ingredients,
-                            Instructions,
-                            Servings,
-                            Calories,
-                            Protein,
-                            Fat,
-                            Fiber,
-                            Carbohydrates,
-                            CreatedAt 
-                    FROM Recipe
-                    WHERE Id = @id ";
+        var sql = @" SELECT R.Id,
+                            R.CollectionId,
+                            C.Name AS CollectionName,
+                            R.Name,
+                            R.Description,
+                            R.CoverPicture,
+                            R.PrepTime,
+                            R.CookTime,
+                            R.Ingredients,
+                            R.Instructions,
+                            R.Servings,
+                            R.Calories,
+                            R.Protein,
+                            R.Fat,
+                            R.Fiber,
+                            R.Carbohydrates,
+                            U.Nickname AS CreatedBy,
+                            R.CreatedAt 
+                    FROM Recipe R
+                    INNER JOIN Collection C ON R.CollectionId = C.Id
+                    INNER JOIN Users U ON C.UserId = U.Id
+                    WHERE R.Id = @id ";
         
-        var recipe = await connection.QuerySingleAsync<Recipe>(sql, new { id });
+        var recipe = await connection.QuerySingleAsync<RecipeDto>(sql, new { id });
         return recipe;
     }
     
