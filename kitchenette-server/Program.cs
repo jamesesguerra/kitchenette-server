@@ -3,6 +3,7 @@ using kitchenette_server.Interfaces.DbContext;
 using kitchenette_server.Interfaces.Recipes;
 using kitchenette_server.Interfaces.Users;
 using kitchenette_server.Interfaces.Collections;
+using kitchenette_server.Interfaces.RecipeReviews;
 using kitchenette_server.Interfaces.Suggestions;
 using kitchenette_server.Repositories;
 using kitchenette_server.Services;
@@ -19,6 +20,8 @@ builder.Services.AddSingleton<ICollectionRepository, CollectionRepository>();
 builder.Services.AddSingleton<ICollectionService, CollectionService>();
 builder.Services.AddSingleton<ISuggestionRepository, SuggestionRepository>();
 builder.Services.AddSingleton<ISuggestionService, SuggestionService>();
+builder.Services.AddSingleton<IRecipeReviewRepository, RecipeReviewRepository>();
+builder.Services.AddSingleton<IRecipeReviewService, RecipeReviewService>();
 
 builder.WebHost.UseUrls("http://*:5280");
 
