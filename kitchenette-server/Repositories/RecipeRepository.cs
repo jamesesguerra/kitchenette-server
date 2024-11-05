@@ -25,10 +25,13 @@ public class RecipeRepository : IRecipeRepository
                             R.Name,
                             R.Description,
                             R.CoverPicture,
-                            R.CreatedAt 
+                            R.CreatedAt,
+                            ROUND(AVG(RR.Rating)) AS AverageRating
                     FROM Recipe AS R 
                     INNER JOIN Collection AS C ON R.CollectionId = C.Id 
-                    WHERE C.UserId = @userId ";
+                    LEFT JOIN RecipeReview AS RR ON R.Id = RR.RecipeId
+                    WHERE C.UserId = @userId
+                    GROUP BY R.Id, C.Name, R.Name, R.Description, R.CoverPicture, R.CreatedAt; ";
         
         var recipes = await connection.QueryAsync<RecipeSummaryDto>(sql, new { userId });
         return recipes;

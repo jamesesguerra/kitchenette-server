@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace kitchenette_server.Controllers;
 
 [ApiController]
-[Route("users")]
+[Route("api/users")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -14,10 +14,10 @@ public class UserController : ControllerBase
         _userService = userService;
     }
     
-    [HttpGet("")]
-    public async Task<IActionResult> GetUsers()
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserById(string id)
     {
-        var users = await _userService.GetUsersAsync();
-        return Ok(users);
+        var user = await _userService.GetUsersAsync(id);
+        return Ok(user);
     }
 }

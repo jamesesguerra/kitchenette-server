@@ -4,5 +4,5 @@ namespace kitchenette_server.Interfaces.Users;
 
 public interface IUserService
 {
-    Task<IEnumerable<User>> GetUsersAsync();
+    Task<User> GetUsersAsync(string id);
 }

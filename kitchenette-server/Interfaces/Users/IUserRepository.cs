@@ -4,5 +4,5 @@ namespace kitchenette_server.Interfaces.Users;
 
 public interface IUserRepository
 {
-    Task<IEnumerable<User>> GetUsersAsync();
+    Task<User> GetUserById(string id);
 }

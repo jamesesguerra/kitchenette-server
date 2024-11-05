@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
         _context = context;
     }
     
-    public async Task<IEnumerable<User>> GetUsersAsync()
+    public async Task<User> GetUserById(string id)
     {
         using var connection = _context.CreateConnection();
 
@@ -25,8 +25,9 @@ public class UserRepository : IUserRepository
                             Bio,
                             Picture,
                             CreatedAt
-                     FROM Users ";
-        var users = await connection.QueryAsync<User>(sql);
+                     FROM Users
+                     WHERE Id = @id ";
+        var users = await connection.QuerySingleAsync<User>(sql, new { id });
         return users;
     }
 }
