@@ -29,4 +29,11 @@ public class RecipeReviewController : ControllerBase
         var review = await _recipeReviewService.AddRecipeReview(recipeReview);
         return Ok(review);
     }
+
+    [HttpGet("{id}/average-rating")]
+    public async Task<IActionResult> GetAverageRecipeRating(int id)
+    {
+        var rating = await _recipeReviewService.GetAverageRecipeRating(id);
+        return Ok(rating);
+    }
 }

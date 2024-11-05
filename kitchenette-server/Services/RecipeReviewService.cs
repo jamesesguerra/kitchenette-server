@@ -21,4 +21,9 @@ public class RecipeReviewService : IRecipeReviewService
     {
         return await _recipeReviewRepository.AddRecipeReview(recipeReview);
     }
+
+    public async Task<int> GetAverageRecipeRating(int id)
+    {
+        return await _recipeReviewRepository.GetAverageRecipeRating(id);
+    }
 }

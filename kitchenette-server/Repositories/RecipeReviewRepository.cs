@@ -66,4 +66,16 @@ public class RecipeReviewRepository : IRecipeReviewRepository
 
         return recipeReview;
     }
+
+    public async Task<int> GetAverageRecipeRating(int id)
+    {
+        using var connection = _context.CreateConnection();
+    
+        var sql = @" SELECT ROUND(AVG(Rating)) AS AverageRating
+                     FROM RecipeReview
+                     WHERE RecipeId = @id; ";
+        
+        var rating  = await connection.QuerySingleAsync<int>(sql, new { id });
+        return rating;
+    }
 }

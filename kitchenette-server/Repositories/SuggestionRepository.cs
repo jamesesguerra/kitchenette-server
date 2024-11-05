@@ -27,6 +27,7 @@ public class SuggestionRepository : ISuggestionRepository
                 S.Description,
                 S.Status,
                 U.Nickname AS CreatedBy,
+                U.Picture AS UserPicture,
                 S.CreatedAt
             FROM Suggestion S
             INNER JOIN Users U ON S.CreatedBy = U.Id
