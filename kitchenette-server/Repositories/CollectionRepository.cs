@@ -15,7 +15,7 @@ public class CollectionRepository : ICollectionRepository
         _context = context;
     }
     
-    public async Task<IEnumerable<Collection>> GetCollectionsByUserId(string userId)
+    public async Task<IEnumerable<Collection>> GetCollectionsByUserId(string userId, bool? isVisible)
     {
         using var connection = _context.CreateConnection();
 
@@ -27,7 +27,9 @@ public class CollectionRepository : ICollectionRepository
                             CreatedAt
                      FROM Collection
                      WHERE UserId = @userId ";
-        var collections = await connection.QueryAsync<Collection>(sql, new { userId });
+        
+        if (isVisible.HasValue) sql += " AND IsVisible = @isVisible ";
+        var collections = await connection.QueryAsync<Collection>(sql, new { userId, isVisible });
         return collections;
     }
     

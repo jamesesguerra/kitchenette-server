@@ -17,9 +17,9 @@ public class CollectionController : ControllerBase
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetCollectionsByUserId([FromQuery] string userId)
+    public async Task<IActionResult> GetCollectionsByUserId([FromQuery] string userId, [FromQuery] bool? isVisible)
     {
-        var collections = await _collectionService.GetCollectionsByUserId(userId);
+        var collections = await _collectionService.GetCollectionsByUserId(userId, isVisible);
         return Ok(collections);
     }
 

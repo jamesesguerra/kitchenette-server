@@ -13,9 +13,9 @@ public class CollectionService : ICollectionService
         _collectionRepository = collectionRepository;
     }
 
-    public async Task<IEnumerable<Collection>> GetCollectionsByUserId(string userId)
+    public async Task<IEnumerable<Collection>> GetCollectionsByUserId(string userId, bool? isVisible)
     {
-        return await _collectionRepository.GetCollectionsByUserId(userId);
+        return await _collectionRepository.GetCollectionsByUserId(userId, isVisible);
     }
 
     public async Task<Collection?> GetCollectionById(int id)

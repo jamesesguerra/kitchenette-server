@@ -11,6 +11,11 @@ public class UserService : IUserService
     {
         _userRepository = userRepository;
     }
+
+    public async Task PatchUser(User user)
+    {
+        await _userRepository.PatchUser(user);
+    }
     
     public async Task<User> GetUsersAsync(string id)
     {

@@ -1,4 +1,5 @@
 using kitchenette_server.Interfaces.Users;
+using kitchenette_server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kitchenette_server.Controllers;
@@ -12,6 +13,15 @@ public class UserController : ControllerBase
     public UserController(IUserService userService)
     {
         _userService = userService;
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchUser(string id, User user)
+    {
+        if (id != user.Id) return BadRequest("User IDs don't match");
+        
+        await _userService.PatchUser(user);
+        return Ok();
     }
     
     [HttpGet("{id}")]

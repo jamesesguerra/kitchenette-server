@@ -13,6 +13,13 @@ public class UserRepository : IUserRepository
     {
         _context = context;
     }
+
+    public async Task PatchUser(User user)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = @" UPDATE Users SET Nickname = @nickname, Bio = @bio WHERE Id = @id ";
+        await connection.ExecuteAsync(sql, new { user.Nickname, user.Bio, user.Id });
+    }
     
     public async Task<User> GetUserById(string id)
     {
