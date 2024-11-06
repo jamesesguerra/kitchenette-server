@@ -26,11 +26,9 @@ builder.Services.AddSingleton<IRecipeReviewService, RecipeReviewService>();
 builder.Services.AddSingleton<ISuggestionCommentRepository, SuggestionCommentRepository>();
 builder.Services.AddSingleton<ISuggestionCommentService, SuggestionCommentService>();
 
-builder.WebHost.UseUrls("http://*:5280");
-
 var allowedOrigins = builder.Environment.IsDevelopment()
     ? new[] { "http://localhost:4200" }
-    : new[] { "https://kitchenette-ui.vercel.app", "https://kitchenetteapp.netlify.app" };
+    : new[] { "https://kitchenet.vercel.app" };
 
 builder.Services.AddCors(options =>
 {
