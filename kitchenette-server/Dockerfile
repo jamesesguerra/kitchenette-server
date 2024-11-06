@@ -14,7 +14,8 @@ WORKDIR /app
 COPY --from=build /app/out ./
 
 ENV ASPNETCORE_ENVIRONMENT="Production"
+ENV ASPNETCORE_URLS="http://*:8000"
 
-EXPOSE 5280
+EXPOSE 8000
 
 ENTRYPOINT ["dotnet", "kitchenette-server.dll"]
