@@ -43,13 +43,14 @@ public class RecipeReviewRepository : IRecipeReviewRepository
                         Rating,
                         Content,
                         CreatedBy,
-                        CreatedAt )
-                     VALUES (
+                        CreatedAt
+                    ) OUTPUT INSERTED.Id 
+                      VALUES (
                         @RecipeId,
                         @Rating,
                         @Content,
                         @CreatedBy,
-                        @CreatedAt ) RETURNING Id ";
+                        @CreatedAt ) ";
         
         var now = DateTime.UtcNow;
         var id = await connection.ExecuteScalarAsync<int>(sql, new

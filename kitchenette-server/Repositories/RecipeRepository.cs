@@ -26,7 +26,7 @@ public class RecipeRepository : IRecipeRepository
                             R.Description,
                             R.CoverPicture,
                             R.CreatedAt,
-                            ROUND(AVG(RR.Rating)) AS AverageRating
+                            ROUND(AVG(RR.Rating), 0) AS AverageRating
                     FROM Recipe AS R 
                     INNER JOIN Collection AS C ON R.CollectionId = C.Id 
                     LEFT JOIN RecipeReview AS RR ON R.Id = RR.RecipeId
@@ -88,7 +88,8 @@ public class RecipeRepository : IRecipeRepository
                          Fiber,
                          Carbohydrates,
                          CreatedAt
-                     ) VALUES (
+                     ) OUTPUT INSERTED.Id 
+                         VALUES (
                          @CollectionId,
                          @Name,
                          @Description,
@@ -103,7 +104,7 @@ public class RecipeRepository : IRecipeRepository
                          @Fat,
                          @Fiber,
                          @Carbohydrates,
-                         @CreatedAt ) RETURNING Id ";
+                         @CreatedAt ) ";
         
         var now = DateTime.UtcNow;
         var id = await connection.ExecuteScalarAsync<int>(sql, new

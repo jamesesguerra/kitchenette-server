@@ -38,7 +38,8 @@ public class SuggestionCommentRepository : ISuggestionCommentRepository
         using var connection = _context.CreateConnection();
 
         var sql = @" INSERT INTO SuggestionComment (SuggestionId, Content, CreatedBy, CreatedAt)
-                     VALUES (@SuggestionId, @Content, @CreatedBy, @CreatedAt) RETURNING Id ";
+                     OUTPUT INSERTED.Id
+                     VALUES (@SuggestionId, @Content, @CreatedBy, @CreatedAt) ";
         
         var now = DateTime.UtcNow;
         var id = await connection.ExecuteScalarAsync<int>(sql, new

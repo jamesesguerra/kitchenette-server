@@ -59,12 +59,13 @@ public class CollectionRepository : ICollectionRepository
                          Description,
                          IsVisible,
                          CreatedAt
-                     ) VALUES (
+                     ) OUTPUT INSERTED.Id
+                       VALUES (
                          @UserId,
                          @Name,
                          @Description,
                          @IsVisible,
-                         @CreatedAt ) RETURNING Id ";
+                         @CreatedAt ) ";
         
         var now = DateTime.UtcNow;
         var id = await connection.ExecuteScalarAsync<int>(sql, new

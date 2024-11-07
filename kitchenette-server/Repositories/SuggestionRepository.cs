@@ -78,8 +78,8 @@ public class SuggestionRepository : ISuggestionRepository
     {
         using var connection = _context.CreateConnection();
 
-        var suggestionSql = @" INSERT INTO Suggestion (RecipeId, Title, Description, CreatedBy)
-                     VALUES (@RecipeId, @Title, @Description, @CreatedBy) RETURNING Id ";
+        var suggestionSql = @" INSERT INTO Suggestion (RecipeId, Title, Description, CreatedBy) OUTPUT INSERTED.Id 
+                     VALUES (@RecipeId, @Title, @Description, @CreatedBy) ";
 
         var id = await connection.ExecuteScalarAsync<int>(suggestionSql, new
         {

@@ -1,6 +1,6 @@
 using System.Data;
 using kitchenette_server.Interfaces.DbContext;
-using Npgsql;
+using Microsoft.Data.SqlClient;
 
 namespace kitchenette_server.Context;
 
@@ -13,5 +13,5 @@ public class DbContext : IDbContext
         _connectionString = configuration.GetConnectionString("DefaultConnection")!;
     }
 
-    public IDbConnection CreateConnection() => new NpgsqlConnection(_connectionString);
+    public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
 }
