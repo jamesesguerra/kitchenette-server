@@ -11,4 +11,5 @@ public interface IRecipeRepository
     Task UpdateRecipe(Recipe recipe);
     Task PatchRecipe(int id, RecipeChanges recipe);
     Task<int> DeleteRecipesByIds(string ids);
+    Task<IEnumerable<RecipeDto>> GetRandomRecipes();
 }

@@ -179,6 +179,26 @@ public class RecipeRepository : IRecipeRepository
 
         return affectedRows;
     }
+
+    public async Task<IEnumerable<RecipeDto>> GetRandomRecipes()
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @"SELECT TOP 5 
+                        R.Id,
+                        R.Name,
+                        R.Description,
+                        R.CoverPicture,
+                        U.Nickname AS CreatedBy,
+                        U.Picture AS UserPicture
+                    FROM Recipe R
+                    JOIN Collection C ON C.Id = R.CollectionId
+                    JOIN Users U ON U.Id = C.UserId
+                    ORDER BY NEWID(); ";
+        
+        var recipes = await connection.QueryAsync<RecipeDto>(sql);
+        return recipes;
+    }
     
     #region private methods
     private DynamicParameters BuildDynamicParams(RecipeChanges recipe, StringBuilder queryBuilder)

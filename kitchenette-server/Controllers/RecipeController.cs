@@ -66,4 +66,11 @@ public class RecipeController : ControllerBase
         
         return NoContent();
     }
+
+    [HttpGet("random")]
+    public async Task<IActionResult> GetRandomRecipes()
+    {
+        var recipes = await _recipeService.GetRandomRecipes();
+        return Ok(recipes);
+    }
 }

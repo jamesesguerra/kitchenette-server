@@ -42,4 +42,9 @@ public class RecipeService : IRecipeService
     {
         return await _recipeRepository.DeleteRecipesByIds(ids);
     }
+
+    public Task<IEnumerable<RecipeDto>> GetRandomRecipes()
+    {
+        return _recipeRepository.GetRandomRecipes();
+    }
 }

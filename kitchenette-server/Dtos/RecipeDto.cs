@@ -6,4 +6,5 @@ public class RecipeDto : Recipe
 {
     public string CollectionName { get; set; }
     public string CreatedBy { get; set; }
+    public string UserPicture { get; set; }
 }
