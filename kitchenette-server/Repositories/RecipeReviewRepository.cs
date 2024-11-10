@@ -72,7 +72,7 @@ public class RecipeReviewRepository : IRecipeReviewRepository
     {
         using var connection = _context.CreateConnection();
     
-        var sql = @" SELECT ROUND(AVG(Rating)) AS AverageRating
+        var sql = @" SELECT ROUND(AVG(Rating), 0) AS AverageRating
                      FROM RecipeReview
                      WHERE RecipeId = @id; ";
         
