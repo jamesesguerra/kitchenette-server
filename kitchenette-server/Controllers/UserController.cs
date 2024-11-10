@@ -30,4 +30,11 @@ public class UserController : ControllerBase
         var user = await _userService.GetUsersAsync(id);
         return Ok(user);
     }
+
+    [HttpPost("")]
+    public async Task<IActionResult> AddUser(User user)
+    {
+        await _userService.AddUser(user);
+        return Ok();
+    }
 }

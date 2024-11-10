@@ -37,4 +37,22 @@ public class UserRepository : IUserRepository
         var users = await connection.QuerySingleAsync<User>(sql, new { id });
         return users;
     }
+
+    public async Task AddUser(User user)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @" INSERT INTO Users (Id, Name, Nickname, Email, Bio, Picture)
+                     VALUES (@Id, @Name, @Nickname, @Email, @Bio, @Picture)";
+
+        await connection.ExecuteAsync(sql, new
+        {
+            user.Id,
+            user.Name,
+            user.Nickname,
+            user.Email,
+            user.Bio,
+            user.Picture
+        });
+    }
 }

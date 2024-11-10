@@ -21,4 +21,9 @@ public class UserService : IUserService
     {
         return await _userRepository.GetUserById(id);
     }
+
+    public async Task AddUser(User user)
+    {
+        await _userRepository.AddUser(user);
+    }
 }
