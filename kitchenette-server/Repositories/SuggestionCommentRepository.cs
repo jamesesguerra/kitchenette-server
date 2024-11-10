@@ -23,6 +23,7 @@ public class SuggestionCommentRepository : ISuggestionCommentRepository
                         SC.SuggestionId,
                         SC.Content,
                         U.Nickname AS CreatedBy,
+                        U.Id AS UserId,
                         U.Picture AS UserPicture,
                         SC.CreatedAt
                      FROM SuggestionComment SC

@@ -11,6 +11,7 @@ public class SuggestionDto
     public string Status { get; set; } = "Open";
     public string CreatedBy { get; set; }
     public string? UserPicture { get; set; }
+    public string? UserId { get; set; }
     public DateTime CreatedAt { get; set; }
     public RecipeChanges RecipeChanges { get; set; }
 }

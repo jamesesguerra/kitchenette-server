@@ -27,6 +27,7 @@ public class SuggestionRepository : ISuggestionRepository
                 S.Description,
                 S.Status,
                 U.Nickname AS CreatedBy,
+                U.Id AS UserId,
                 U.Picture AS UserPicture,
                 S.CreatedAt
             FROM Suggestion S

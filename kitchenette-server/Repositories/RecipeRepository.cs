@@ -190,6 +190,7 @@ public class RecipeRepository : IRecipeRepository
                         R.Description,
                         R.CoverPicture,
                         U.Nickname AS CreatedBy,
+                        U.Id AS UserId,
                         U.Picture AS UserPicture
                     FROM Recipe R
                     JOIN Collection C ON C.Id = R.CollectionId

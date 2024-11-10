@@ -25,6 +25,7 @@ public class RecipeReviewRepository : IRecipeReviewRepository
                         RR.Content,
                         U.Nickname AS CreatedBy,
                         U.Picture AS UserPicture,
+                        U.Id AS UserId,
                         RR.CreatedAt
                      FROM RecipeReview RR
                      INNER JOIN Users U ON RR.CreatedBy = U.Id
@@ -72,7 +73,7 @@ public class RecipeReviewRepository : IRecipeReviewRepository
     {
         using var connection = _context.CreateConnection();
     
-        var sql = @" SELECT ROUND(AVG(Rating), 0) AS AverageRating
+        var sql = @" SELECT ISNULL(ROUND(AVG(Rating), 0), 0) AS AverageRating
                      FROM RecipeReview
                      WHERE RecipeId = @id; ";
         
