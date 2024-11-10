@@ -17,6 +17,9 @@ builder.Services.AddAzureClients(azureBuilder =>
     azureBuilder.AddBlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage"));
 });
 
+builder.Services.AddHealthChecks();
+
+
 // Add services to the container.
 builder.Services.AddSingleton<IDbContext, DbContext>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
@@ -52,6 +55,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MapHealthChecks("api/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
