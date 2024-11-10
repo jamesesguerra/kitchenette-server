@@ -1,0 +1,21 @@
+name: kitchenet API
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+          
+      - name: Restore dependencies
+        run: dotnet restore ./kitchenette-server/kitchenette-server.csproj
+        
+      - name: Build
+        run: dotnet build ./kitchenette-server/kitchenette-server.csproj --configuration Release --no-restore
+    
+    
