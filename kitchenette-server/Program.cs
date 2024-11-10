@@ -8,8 +8,14 @@ using kitchenette_server.Interfaces.SuggestionComments;
 using kitchenette_server.Interfaces.Suggestions;
 using kitchenette_server.Repositories;
 using kitchenette_server.Services;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAzureClients(azureBuilder =>
+{
+    azureBuilder.AddBlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage"));
+});
 
 // Add services to the container.
 builder.Services.AddSingleton<IDbContext, DbContext>();
@@ -38,7 +44,9 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
+
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

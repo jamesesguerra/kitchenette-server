@@ -1,5 +1,8 @@
 name: kitchenet API
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
@@ -23,7 +26,7 @@ jobs:
 
       - name: Publish
         run: dotnet publish ./kitchenette-server/kitchenette-server.csproj -c Release -o ./publish
-
+  
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
