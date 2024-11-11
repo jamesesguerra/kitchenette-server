@@ -58,6 +58,7 @@ public class RecipeRepository : IRecipeRepository
                             R.Fiber,
                             R.Carbohydrates,
                             U.Nickname AS CreatedBy,
+                            U.Id AS UserId,
                             R.CreatedAt 
                     FROM Recipe R
                     INNER JOIN Collection C ON R.CollectionId = C.Id
