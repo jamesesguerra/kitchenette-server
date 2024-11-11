@@ -62,4 +62,11 @@ public class CollectionController : ControllerBase
         await _collectionService.UpdateCollection(id, collection);
         return NoContent();
     }
+
+    [HttpGet("recent")]
+    public async Task<IActionResult> GetRecentCollections()
+    {
+        var collections = await _collectionService.GetRecentCollections();
+        return Ok(collections);
+    }
 }

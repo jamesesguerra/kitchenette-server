@@ -42,4 +42,9 @@ public class CollectionService : ICollectionService
     {
         await _collectionRepository.UpdateCollection(id, updatedCollection);
     }
+
+    public async Task<IEnumerable<CollectionDto>> GetRecentCollections()
+    {
+        return await _collectionRepository.GetRecentCollections();
+    }
 }

@@ -140,4 +140,19 @@ public class CollectionRepository : ICollectionRepository
             id
         });
     }
+
+    public async Task<IEnumerable<CollectionDto>> GetRecentCollections()
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @" SELECT TOP 5 C.Id, C.UserId, C.Name, C.Description, U.Nickname AS CreatedBy, U.Picture AS UserPicture
+                     FROM Collection C
+                     INNER JOIN Users U
+                        ON C.UserId = U.Id
+                     WHERE C.IsVisible = 1
+                     ORDER BY C.CreatedAt DESC ";
+
+        var collections = await connection.QueryAsync<CollectionDto>(sql);
+        return collections;
+    }
 }

@@ -11,4 +11,5 @@ public interface ICollectionService
     Task<int> DeleteCollection(int id);
     Task<CollectionDto> GetCollectionByIdWithRecipes(int id);
     Task UpdateCollection(int id, Collection updatedCollection);
+    Task<IEnumerable<CollectionDto>> GetRecentCollections();
 }
