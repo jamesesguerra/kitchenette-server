@@ -99,13 +99,15 @@ public class CollectionRepository : ICollectionRepository
 
         var collectionSql = @"
             SELECT
-                Id,
-                Name,
-                Description,
-                IsVisible,
-                CreatedAt
-            FROM Collection
-            WHERE Id = @id ";
+                C.Id,
+                C.Name,
+                C.Description,
+                C.IsVisible,
+                C.CreatedAt,
+                U.Id AS UserId
+            FROM Collection C
+            INNER JOIN Users U ON C.UserId = U.Id 
+            WHERE C.Id = @id ";
 
         var recipesSql = @"
             SELECT
